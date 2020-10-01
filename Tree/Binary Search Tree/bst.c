@@ -18,7 +18,8 @@ void create();
 void search(struct btnode *t);
 void preorder(struct btnode *t);
 void postorder(struct btnode *t);
-
+void height (struct btnode *t);
+int recursiveheight (struct btnode *t);
 
 int flag = 1;
 
@@ -31,7 +32,8 @@ int main()
     printf("2 - Inorder Traversal\n");
     printf("3 - Preorder Traversal\n");
     printf("4 - Postorder Traversal\n");
-    printf("5 - Exit\n");
+    printf("5 - Tree's Height\n");
+    printf("0 - Exit\n");
     while(1)
     {
         printf("\nEnter your choice : ");
@@ -51,6 +53,9 @@ int main()
             postorder(root);
             break;
         case 5:
+        	height(root);
+        	break;
+        case 0:
             exit(0);
         default :
             printf("Wrong choice, Please enter correct choice  ");
@@ -139,4 +144,25 @@ void postorder(struct btnode *t)
     if (t->r != NULL)
         postorder(t->r);
     printf("%d -> ", t->value);
+}
+
+/* Calls the function that finds the tree's height */
+void height(struct btnode *t)
+{
+	printf ("The tree's height is %d", recursiveheight(t));
+}
+
+/* To find the tree's height */
+int recursiveheight (struct btnode *t)
+{
+	int rightheight, leftheight;
+	
+	if (t == NULL)
+		return 0;
+	else
+	{
+		rightheight = recursiveheight (t->r);
+		leftheight = recursiveheight (t->l);
+		return 1 + (rightheight > leftheight ? rightheight : leftheight); /* 1 + the highest height of the sons*/
+	}
 }
